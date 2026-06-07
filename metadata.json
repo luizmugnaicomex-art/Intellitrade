@@ -1,0 +1,6 @@
+{
+  "name": "Comex ERP",
+  "description": "Enterprise Resource Planning platform for international trade logistics and documentation management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

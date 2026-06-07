@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;750&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --brand-primary: #0a2540;      /* Elite Corporate Navy */
+  --brand-secondary: #12365c;    /* Deep Executive Blue */
+  --brand-accent: #0076a8;       /* Professional Cobalt/Teal (SAP-like Link and Button Primary) */
+  --brand-highlight: #e6f0fa;    /* Selected nav background - soft professional light blue tint */
+  --brand-light: #f4f6f9;        /* Soft neutral surface background */
+}
+
+.dark {
+  --brand-primary: #0a1220;      /* Deep obsidian slate ERP dark mode background */
+  --brand-secondary: #111b27;    /* Sleek steel grey ERP dark mode sidebar and panel background */
+  --brand-accent: #3fa1e0;       /* Lighter interactive sky/cobalt accent for contrast */
+  --brand-highlight: #1e2d3e;    /* Sleek dark highlight active selection state */
+  --brand-light: #162232;        /* Subtly lighter deep surface panel */
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-highlight: var(--brand-highlight);
+  --color-brand-light: var(--brand-light);
+  
+  --color-brand-gray-500: #475569; /* Slate 600 */
+  --color-brand-gray-400: #64748b; /* Slate 500 */
+  --color-brand-gray-300: #cbd5e1; /* Slate 300 */
+}
+
+body {
+  background-color: var(--brand-light);
+  color: #1e293b;
+}
+
+.dark body {
+  color: #f1f5f9;
+}
+
