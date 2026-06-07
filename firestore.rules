@@ -1,0 +1,114 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default-deny catch-all safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ID Poisoning & Guard limits string sizing
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Since the app has no auth/login flow, we permit public access to standard collections
+    // while protecting document names with isValidId parameter scans to prevent ID poisoning / NoSQL injection.
+    
+    match /users/{userId} {
+      allow get: if isValidId(userId);
+      allow list: if true;
+      allow write: if isValidId(userId);
+    }
+
+    match /imports/{importId} {
+      allow get: if isValidId(importId);
+      allow list: if true;
+      allow write: if isValidId(importId);
+    }
+
+    match /claims/{claimId} {
+      allow get: if isValidId(claimId);
+      allow list: if true;
+      allow write: if isValidId(claimId);
+    }
+
+    match /ncms/{ncmId} {
+      allow get: if isValidId(ncmId);
+      allow list: if true;
+      allow write: if isValidId(ncmId);
+    }
+
+    match /tasks/{taskId} {
+      allow get: if isValidId(taskId);
+      allow list: if true;
+      allow write: if isValidId(taskId);
+    }
+
+    match /deliverySchedule/{slotId} {
+      allow get: if isValidId(slotId);
+      allow list: if true;
+      allow write: if isValidId(slotId);
+    }
+
+    match /containerBuffer/{itemId} {
+      allow get: if isValidId(itemId);
+      allow list: if true;
+      allow write: if isValidId(itemId);
+    }
+
+    match /procedures/{procId} {
+      allow get: if isValidId(procId);
+      allow list: if true;
+      allow write: if isValidId(procId);
+    }
+
+    match /contracts/{contractId} {
+      allow get: if isValidId(contractId);
+      allow list: if true;
+      allow write: if isValidId(contractId);
+    }
+
+    match /pdcaItems/{itemId} {
+      allow get: if isValidId(itemId);
+      allow list: if true;
+      allow write: if isValidId(itemId);
+    }
+
+    match /suppliers/{supplierId} {
+      allow get: if isValidId(supplierId);
+      allow list: if true;
+      allow write: if isValidId(supplierId);
+    }
+
+    match /projects/{projectId} {
+      allow get: if isValidId(projectId);
+      allow list: if true;
+      allow write: if isValidId(projectId);
+    }
+
+    match /invoices/{invoiceId} {
+      allow get: if isValidId(invoiceId);
+      allow list: if true;
+      allow write: if isValidId(invoiceId);
+    }
+
+    match /payments/{paymentId} {
+      allow get: if isValidId(paymentId);
+      allow list: if true;
+      allow write: if isValidId(paymentId);
+    }
+
+    match /warehouses/{warehouseId} {
+      allow get: if isValidId(warehouseId);
+      allow list: if true;
+      allow write: if isValidId(warehouseId);
+    }
+
+    match /vesselSchedule/{scheduleId} {
+      allow get: if isValidId(scheduleId);
+      allow list: if true;
+      allow write: if isValidId(scheduleId);
+    }
+  }
+}

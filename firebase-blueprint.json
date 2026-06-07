@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "ImportProcess": {
+      "title": "ImportProcess",
+      "description": "An import process shipment tracking details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "importNumber": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "User": {
+      "title": "User",
+      "description": "System profile user metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string" }
+      }
+    },
+    "Claim": {
+      "title": "Claim",
+      "description": "Cargo or customs claim tickets",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "importId": { "type": "string" }
+      }
+    },
+    "NcmEntry": {
+      "title": "NcmEntry",
+      "description": "NCM classification codes and tax parameters",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Workflow checklist item tasks",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "DeliverySlot": {
+      "title": "DeliverySlot",
+      "description": "Delivery scheduling slots",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "ContainerBufferItem": {
+      "title": "ContainerBufferItem",
+      "description": "Buffer yard and terminal metrics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Procedure": {
+      "title": "Procedure",
+      "description": "Customs clearance compliance standard procedures",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Contract": {
+      "title": "Contract",
+      "description": "Supplier contracts and commercial terms",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "PdcaItem": {
+      "title": "PdcaItem",
+      "description": "Continuous improvement PDCA cycle tickets",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Supplier": {
+      "title": "Supplier",
+      "description": "Suppliers and evaluation metrics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Special trading implementation projects",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Import invoice tracking documents",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Disbursements and transaction records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "Warehouse": {
+      "title": "Warehouse",
+      "description": "Buffer warehouse profiles",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    },
+    "VesselScheduleEntry": {
+      "title": "VesselScheduleEntry",
+      "description": "Vessel schedules feeds",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/imports": { "schema": "ImportProcess", "description": "Import Processes" },
+    "/users": { "schema": "User", "description": "Users Accounts" },
+    "/claims": { "schema": "Claim", "description": "Claims Tracking" },
+    "/ncms": { "schema": "NcmEntry", "description": "NCM Classification database" },
+    "/tasks": { "schema": "Task", "description": "Tasks CRM checklist" },
+    "/deliverySchedule": { "schema": "DeliverySlot", "description": "Delivery scheduling slots" },
+    "/containerBuffer": { "schema": "ContainerBufferItem", "description": "Container Yard items" },
+    "/procedures": { "schema": "Procedure", "description": "Customs clearance compliance standard procedures" },
+    "/contracts": { "schema": "Contract", "description": "Supplier contracts and commercial terms" },
+    "/pdcaItems": { "schema": "PdcaItem", "description": "Continuous improvement PDCA cycle tickets" },
+    "/suppliers": { "schema": "Supplier", "description": "Suppliers and evaluations" },
+    "/projects": { "schema": "Project", "description": "Special trading projects" },
+    "/invoices": { "schema": "Invoice", "description": "Import invoice tracking documents" },
+    "/payments": { "schema": "Payment", "description": "Disbursements and transaction records" },
+    "/warehouses": { "schema": "Warehouse", "description": "Buffer warehouse profiles" },
+    "/vesselSchedule": { "schema": "VesselScheduleEntry", "description": "Vessel schedules feeds" }
+  }
+}
