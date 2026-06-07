@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 
+// Memory fallback inside a global record, in case localStorage is blocked/sandboxed
+const memoryStorage: Record<string, string> = {};
+
 export function useLocalStorage<T>(key: string, initialValue: T | (() => T)): [T, React.Dispatch<React.SetStateAction<T>>] {
     const [storedValue, setStoredValue] = useState<T>(() => {
-        const item = window.localStorage.getItem(key);
+        let item: string | null = null;
+        try {
+            item = window.localStorage.getItem(key);
+        } catch (error) {
+            console.warn(`localStorage getItem failed for key "${key}" due to security or storage restrictions. Using memory fallback.`, error);
+            item = memoryStorage[key] || null;
+        }
+
         if (!item || item === 'null' || item === 'undefined') {
              return initialValue instanceof Function ? initialValue() : initialValue;
         }
@@ -15,7 +25,11 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)): [T
                 '\nValue was:', item,
                 '\nThis key will be cleared and reset to its initial value.'
             );
-            window.localStorage.removeItem(key);
+            try {
+                window.localStorage.removeItem(key);
+            } catch (e) {
+                delete memoryStorage[key];
+            }
             return initialValue instanceof Function ? initialValue() : initialValue;
         }
     });
@@ -24,9 +38,14 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)): [T
         try {
             const valueToStore = value instanceof Function ? value(storedValue) : value;
             setStoredValue(valueToStore);
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            try {
+                window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            } catch (error) {
+                console.warn(`localStorage setItem failed for key "${key}". Saving to memory storage.`, error);
+                memoryStorage[key] = JSON.stringify(valueToStore);
+            }
         } catch (error) {
-            console.error(`Error saving to localStorage key “${key}”:`, error);
+            console.error(`Error saving key “${key}”:`, error);
         }
     };
 

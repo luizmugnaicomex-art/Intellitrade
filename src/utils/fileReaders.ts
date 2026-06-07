@@ -3,9 +3,15 @@
 import * as XLSX from 'xlsx';
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Set worker source for pdf.js. This is crucial for it to work in a browser environment.
-// Using a modern module worker from a CDN.
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.mjs`;
+// Set worker source for pdf.js safely. This is crucial for it to work in a browser environment.
+// We wrap it in a safe try-catch module-level block to prevent runtime crashes during initial asset loading.
+try {
+  if (pdfjsLib && 'GlobalWorkerOptions' in pdfjsLib && pdfjsLib.GlobalWorkerOptions) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version || '3.11.174'}/pdf.worker.min.js`;
+  }
+} catch (e) {
+  console.warn("PDFJS GlobalWorkerOptions assignment caught at module load:", e);
+}
 
 /**
  * Reads a File object as plain text.
