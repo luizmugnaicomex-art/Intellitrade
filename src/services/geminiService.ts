@@ -5,7 +5,17 @@ import type { ImportProcess, Claim, Task } from '../types';
 import { ImportStatus, TaskStatus } from '../types';
 import { isPast, differenceInDays } from 'date-fns';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+function getAiClient(): GoogleGenAI {
+    const meta = import.meta as any;
+    const apiKey = (meta?.env?.VITE_API_KEY as string) || 
+                   (meta?.env?.VITE_GEMINI_API_KEY as string) || 
+                   (typeof process !== 'undefined' ? (process.env?.API_KEY || process.env?.GEMINI_API_KEY) : undefined);
+    
+    if (!apiKey) {
+        throw new Error("Unable to initialize Gemini API: An API Key must be configured. Please set your API Key in your workspace settings.");
+    }
+    return new GoogleGenAI({ apiKey });
+}
 
 // Function to generate a smart summary using Gemini
 export async function geminiGenerateSmartSummary(
@@ -66,6 +76,7 @@ export async function geminiGenerateSmartSummary(
     `;
 
     try {
+        const ai = getAiClient();
         const response: GenerateContentResponse = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt,
